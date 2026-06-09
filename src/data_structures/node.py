@@ -1,12 +1,26 @@
 from datetime import datetime
-import time
+from typing import TypedDict
 
-class Node:
-    def __init__(self, tipo: str, preco: float, quantidade: int):
-        self.id = None # Usar id ou não?????
-        self.tipo = tipo # compra ou venda
-        self.preco = preco
-        self.quantidade = quantidade # quantas acoes foram compradas ou vendidas
-        self.timestamp = datetime.now()
+
+class Valor(TypedDict):
+    tipo: str
+    preco: float
+    quantidade: int
+    timestamp: datetime
+
+
+class Node():
+    def __init__(self, valor: Valor):
         self.proximo = None
         self.anterior = None
+        self.valor = valor
+
+if __name__ == '__main__':
+    valor = {
+        'tipo': 'v',
+        'preco': 10.0,
+        'quantidade': 3,
+        'timestamp': datetime.now()
+    }
+    no = Node(valor)
+    print(no.valor)
