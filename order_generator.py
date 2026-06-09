@@ -36,6 +36,16 @@ def generate_orders_csv(filename, num_orders):
 
 # Bloco de execução principal
 if __name__ == "__main__":
-    # Gera o arquivo de teste com 50 ordens
-    generate_orders_csv('orders.csv', 50)
-    print("Arquivo 'orders.csv' gerado com sucesso!")
+    try:
+        # Pede para o usuário digitar a quantidade de ordens
+        quantidade_desejada = int(input("Digite a quantidade de ordens que deseja gerar: "))
+        
+        if quantidade_desejada <= 0:
+            print("Por favor, digite um número maior que zero.")
+        else:
+            # Usa a variável digitada pelo usuário na função
+            generate_orders_csv('orders.csv', quantidade_desejada)
+            print(f"Arquivo 'orders.csv' gerado com sucesso com {quantidade_desejada} ordens!")
+            
+    except ValueError:
+        print("Entrada inválida! Por favor, digite apenas números inteiros.")
