@@ -1,6 +1,9 @@
 from node import Node
 from datetime import datetime
 
+# TODO Adicionar id ou nome de compraor no nó
+# TODO Remover a última seta quando imprime a lista?
+
 class Linked_List_Compra: # Melhor comprador no início
 
     # Construtor
@@ -18,12 +21,16 @@ class Linked_List_Compra: # Melhor comprador no início
         saida = ""
 
         while (atual):
-            saida += f'{str(atual.valor['tipo'])} por {str(atual.valor['preco'])} --> '
+            saida += f"{atual.valor['tipo']} por {atual.valor['preco']} --> " # ? Substituir 'tipo' por 'Compra' já que a lista é so de compra
             atual = atual.proximo
-        return saida
+        return saida.removesuffix(' --> ')
     
 
     def adicionar_no(self, no: Node): # Adiciona melhor comprador no inicio
+        if self.contem_no(no):
+            print("Erro: Este nó já está na lista. Crie um novo nó para ordens duplicadas.") #! Impede o código de entrar em loop com 2 obetos iguais na lista (ponteiros entrariam em conflito)
+            return
+        
         if no.valor['tipo'] != 'C':
             print('Erro, tipo da ação inválido')
             return
@@ -61,6 +68,7 @@ class Linked_List_Compra: # Melhor comprador no início
                 
             atual = atual.proximo
 
+
     def contem_no(self, no: Node) -> bool:
         if self.tamanho == 0 or no is None:
             print('Nó inválido ou lista vazia.')
@@ -70,15 +78,13 @@ class Linked_List_Compra: # Melhor comprador no início
         
         while atual is not None:
             
-            # Compara se o objeto atual da lista é EXATAMENTE o mesmo
             if atual == no:
                 return True
                 
-            # 3. O Passo (ESSENCIAL para não travar o loop!)
             atual = atual.proximo
             
-        # 4. Terminou de varrer a lista e não encontrou
         return False
+
 
     def excluir_no(self, no: Node):
         # Verificando se o nó que será excuido está na lista
@@ -116,7 +122,7 @@ class Linked_List_Compra: # Melhor comprador no início
 
 if __name__ == "__main__":
 
-    # ! Cuidado ao criar valores. Dicionário valor está tipado
+    # ! Cuidado ao criar valores. Dicionário 'valor' está tipado
 
     valor1 = {
         'tipo': 'C',
@@ -143,10 +149,24 @@ if __name__ == "__main__":
     acao2 = Node(valor2)
     acao3 = Node(valor3)
 
+    print('=' * 30)
+    print()
+    print('Teste para remover nó da lista')
+    print()
     lista_compradores = Linked_List_Compra()
     lista_compradores.adicionar_no(acao1)
     lista_compradores.adicionar_no(acao2)
     lista_compradores.excluir_no(acao3)
+    print()
+
+
+    print('=' * 30)
+    print()
+    print('Teste para imprimir a lista')
+    print()
+    lista_compradores.adicionar_no(acao3)
+    lista_compradores.adicionar_no(acao3)
+    print(lista_compradores.imprimir())
 
 
 
@@ -160,16 +180,3 @@ if __name__ == "__main__":
 
 
 
-
-
-
-    # lista_compradores = Linked_List_Compra()
-    # lista_compradores.adicionar_no(acao1)
-    # print(lista_compradores.imprimir())
-    # #lista_compradores.adicionar_no(acao2)
-    # print(lista_compradores.imprimir())
-    # #lista_compradores.adicionar_no(acao3)
-    # print(lista_compradores.imprimir())
-
-    # lista_compradores.excluir_no(acao2)
-    # print(lista_compradores.imprimir())
