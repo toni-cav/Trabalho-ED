@@ -1,12 +1,11 @@
-from datetime import datetime
-import time
-
 class Node:
-    def __init__(self, tipo: str, preco: float, quantidade: int):
-        self.id = None # Usar id ou não?????
-        self.tipo = tipo # compra ou venda
-        self.preco = preco
-        self.quantidade = quantidade # quantas acoes foram compradas ou vendidas
-        self.timestamp = datetime.now()
-        self.proximo = None
-        self.anterior = None
+
+    # estrutura base para encadeamento de nós
+
+    def __init__(self, data=None):
+        # no motor de negociação, este 'data' abrigará um objeto da classe Ordem
+        self.data = data
+        
+        self.next = None
+        
+        self.prev = None
