@@ -63,6 +63,27 @@ class Linked_List_Compra:  # Melhor comprador no início
                 return
 
             atual = atual.next
+    
+    def remover_inicio(self):
+        if self.inicio is None:
+            return None
+
+        no_removido = self.inicio
+        ordem_removida = no_removido.data
+
+        self.inicio = self.inicio.next
+
+        if self.inicio is None:
+            self.fim = None
+        else:
+            self.inicio.prev = None
+
+        no_removido.next = None
+        no_removido.prev = None
+
+        self.tamanho -= 1
+
+        return ordem_removida
 
 
 class Linked_List_Venda:  # Melhor vendedor no início
@@ -126,6 +147,27 @@ class Linked_List_Venda:  # Melhor vendedor no início
                 return
 
             atual = atual.next
+    
+    def remover_inicio(self):
+        if self.inicio is None:
+            return None
+
+        no_removido = self.inicio
+        ordem_removida = no_removido.data
+
+        self.inicio = self.inicio.next
+
+        if self.inicio is None:
+            self.fim = None
+        else:
+            self.inicio.prev = None
+
+        no_removido.next = None
+        no_removido.prev = None
+
+        self.tamanho -= 1
+
+        return ordem_removida
 
 
 if __name__ == "__main__":
