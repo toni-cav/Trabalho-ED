@@ -64,25 +64,3 @@ class Queue:
 
         return saida
 
-
-if __name__ == "__main__":
-
-    fila = Queue()
-
-    ordem1 = Ordem(1, "C", 100.0, 10)
-    ordem2 = Ordem(2, "V", 90.0, 5)
-    ordem3 = Ordem(3, "C", 110.0, 20)
-
-    fila.enqueue(ordem1)
-    fila.enqueue(ordem2)
-    fila.enqueue(ordem3)
-
-    print("Fila inicial:")
-    print(fila.imprimir())
-
-    print("\nRemovendo da fila:")
-    print(fila.dequeue())
-    print(fila.dequeue())
-
-    print("\nFila depois das remoções:")
-    print(fila.imprimir())
