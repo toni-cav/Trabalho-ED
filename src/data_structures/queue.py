@@ -1,5 +1,5 @@
-from node import Node
-from ordem import Ordem
+from src.data_structures.node import Node
+from src.data_structures.ordem import Ordem
 
 
 class Queue:
