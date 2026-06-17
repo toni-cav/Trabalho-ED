@@ -9,7 +9,7 @@ class Stack:
         if self.topo == None: return True
         else: return False
 
-    def enfileirar(self, data):
+    def empilhar(self, data):
         # Cria o nó a ser adicionado
         no = Node(data=data)
 
@@ -19,7 +19,7 @@ class Stack:
         # O novo item no topo é o nó adicionado
         self.topo = no
 
-    def desenfileirar(self):
+    def desempilhar(self):
         # Se a lista está vazia, não há como retirar o último item
         if self.esta_vazia(): return None
         
