@@ -19,7 +19,6 @@ class Ordem:
         if self.quantidade <= 0:
             raise ValueError("A quatidade deve ser maior que zero.")
         
-
     def __repr__(self):
         # formata a exibição da ordem no terminal para facilitar testes e debug
         return (

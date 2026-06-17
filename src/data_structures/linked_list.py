@@ -1,7 +1,6 @@
 from src.data_structures.node import Node
 from src.data_structures.ordem import Ordem
 
-
 class Linked_List_Compra:  # Melhor comprador no início
 
     # Construtor
@@ -168,5 +167,3 @@ class Linked_List_Venda:  # Melhor vendedor no início
         self.tamanho -= 1
 
         return ordem_removida
-
-

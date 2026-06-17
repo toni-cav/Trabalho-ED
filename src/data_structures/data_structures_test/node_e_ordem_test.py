@@ -1,6 +1,8 @@
 from src.data_structures.ordem import Ordem
 from src.data_structures.node import Node
 
+print("Teste Node e Ordem")
+
 o1 = Ordem(id_ordem=1, tipo='c', preco=15.50, quantidade=100)
 o2 = Ordem(id_ordem=2, tipo='v', preco=16.00, quantidade=50)
 
