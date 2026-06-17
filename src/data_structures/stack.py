@@ -40,7 +40,7 @@ class Stack:
         Retorna uma string com os elementos da pilha (do topo para a base)
         para fins de debug e visualização do histórico de Undo.
         """
-        if self.is_empty():
+        if self.esta_vazia():
             return "Pilha vazia."
 
         atual = self.topo
