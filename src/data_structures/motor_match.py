@@ -1,14 +1,34 @@
 from src.data_structures.node import Node
 from src.data_structures.ordem import Ordem
 from src.data_structures.linked_list import Linked_List_Compra, Linked_List_Venda
-
+from src.data_structures.queue import Queue
+from src.data_structures.stack import Stack
 
 class Motor_Match:
 
     def __init__(self):
         self.lista_compras = Linked_List_Compra()
         self.lista_vendas = Linked_List_Venda()
+        self.fila_entrada = Queue()   # Fila FIFO de entrada de novas ordens
+        self.pilha_undo = Stack()     # Pilha com IDs inseridos com sucesso no livro
         self.transacoes = []
+
+    def inserir_ordem(self, ordem: Ordem):
+        """
+        Ponto de entrada de uma nova ordem no sistema.
+        Toda ordem nova entra primeiro na fila FIFO, aguardando
+        ser processada pelo motor (Seção 3.2 do enunciado).
+        """
+        self.fila_entrada.enfileirar(ordem)
+
+    def processar_fila(self):
+        """
+        Processa, em ordem de chegada (FIFO), todas as ordens
+        que estão atualmente na fila de entrada.
+        """
+        while not self.fila_entrada.esta_vazia():
+            ordem = self.fila_entrada.desenfileirar()
+            self.processar_ordem(ordem)
 
     def processar_ordem(self, ordem: Ordem):
         if ordem.tipo == 'C':
@@ -23,7 +43,6 @@ class Motor_Match:
     def processar_compra(self, ordem_compra: Ordem):
         """
         Uma compra casa com vendas quando:
-
         preço_compra >= preço_venda
         """
 
@@ -57,11 +76,13 @@ class Motor_Match:
         if ordem_compra.quantidade > 0:
             no_compra = Node(ordem_compra)
             self.lista_compras.adicionar_no(no_compra)
+            # Registra no undo apenas a ordem que efetivamente passou
+            # a repousar no livro de ofertas
+            self.pilha_undo.enfileirar(('C', ordem_compra.id))
 
     def processar_venda(self, ordem_venda: Ordem):
         """
         Uma venda casa com compras quando:
-
         preço_compra >= preço_venda
         """
 
@@ -95,6 +116,38 @@ class Motor_Match:
         if ordem_venda.quantidade > 0:
             no_venda = Node(ordem_venda)
             self.lista_vendas.adicionar_no(no_venda)
+            # Registra no undo apenas a ordem que efetivamente passou
+            # a repousar no livro de ofertas
+            self.pilha_undo.enfileirar(('V', ordem_venda.id))
+
+    def desfazer_ultima_acao(self):
+        """
+        Sistema de Undo, desfaz a última
+        inserção bem-sucedida no livro de ofertas, removendo a
+        ordem correspondente através do seu ID.
+        """
+        if self.pilha_undo.esta_vazia():
+            print("Não há ações para desfazer.")
+            return None
+
+        tipo, id_ordem = self.pilha_undo.desenfileirar()
+
+        if tipo == 'C':
+            ordem_removida = self.lista_compras.remover_por_id(id_ordem)
+        else:
+            ordem_removida = self.lista_vendas.remover_por_id(id_ordem)
+
+        if ordem_removida is not None:
+            print(f"[UNDO] Ordem ID {id_ordem} ({tipo}) removida do livro.")
+        else:
+            # Pode acontecer se a ordem já tiver sido total ou
+            # parcialmente casada após sua inserção no livro
+            print(
+                f"[UNDO] Ordem ID {id_ordem} ({tipo}) não encontrada "
+                f"no livro (provavelmente já foi casada)."
+            )
+
+        return ordem_removida
 
     def registrar_transacao(self, id_compra, id_venda, preco, quantidade):
         transacao = {

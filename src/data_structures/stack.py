@@ -9,7 +9,7 @@ class Stack:
         if self.topo == None: return True
         else: return False
 
-    def empilhar(self, data):
+    def enfileirar(self, data):
         # Cria o nó a ser adicionado
         no = Node(data=data)
 
@@ -19,7 +19,7 @@ class Stack:
         # O novo item no topo é o nó adicionado
         self.topo = no
 
-    def desempilhar(self):
+    def desenfileirar(self):
         # Se a lista está vazia, não há como retirar o último item
         if self.esta_vazia(): return None
         
@@ -34,3 +34,21 @@ class Stack:
     def espiar(self):
         if self.esta_vazia(): return None
         return self.topo.data
+    
+    def imprimir(self):
+        """
+        Retorna uma string com os elementos da pilha (do topo para a base)
+        para fins de debug e visualização do histórico de Undo.
+        """
+        if self.is_empty():
+            return "Pilha vazia."
+
+        atual = self.topo
+        saida = "Topo -> "
+
+        while atual:
+            # Assumindo que atual.data guarda o ID da ordem
+            saida += f"[{atual.data}] "
+            atual = atual.next
+            
+        return saida
