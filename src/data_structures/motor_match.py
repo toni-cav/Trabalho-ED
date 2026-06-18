@@ -1,8 +1,6 @@
 from src.data_structures.node import Node
 from src.data_structures.ordem import Ordem
 from src.data_structures.linked_list import Linked_List_Compra, Linked_List_Venda
-from src.data_structures.queue import Queue
-from src.data_structures.stack import Stack
 
 class Motor_Match:
 

@@ -12,7 +12,7 @@ class Queue:
     def esta_vazia(self):
         return self.inicio is None
 
-    def enfileirar(self, ordem: Ordem):
+    def empilhar(self, ordem: Ordem):
         novo_no = Node(ordem)
 
         if self.esta_vazia():
@@ -25,7 +25,7 @@ class Queue:
 
         self.tamanho += 1
 
-    def desenfileirar(self):
+    def desempilhar(self):
         if self.esta_vazia():
             print("Fila vazia")
             return None

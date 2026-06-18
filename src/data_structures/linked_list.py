@@ -200,36 +200,3 @@ class Linked_List_Venda:  # Melhor vendedor no início
         self.tamanho -= 1
 
         return ordem_removida
-
-    def remover_por_id(self, id_ordem):
-        """
-        Remove de qualquer ponto da lista o nó cuja Ordem tenha o id
-        informado, religando os ponteiros next/prev dos vizinhos.
-        Necessário para o cancelamento via pilha de undo.
-        """
-        atual = self.inicio
-
-        while atual:
-            if atual.data.id == id_ordem:
-
-                if atual.prev is None:
-                    self.inicio = atual.next
-                else:
-                    atual.prev.next = atual.next
-
-                if atual.next is None:
-                    self.fim = atual.prev
-                else:
-                    atual.next.prev = atual.prev
-
-                ordem_removida = atual.data
-
-                atual.next = None
-                atual.prev = None
-
-                self.tamanho -= 1
-                return ordem_removida
-
-            atual = atual.next
-
-        return None  # id não encontrado no livro

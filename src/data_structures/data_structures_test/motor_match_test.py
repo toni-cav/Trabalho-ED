@@ -3,6 +3,8 @@ from src.data_structures.motor_match import Motor_Match
 
 print("=== TESTE FILA DE ENTRADA ===")
 
+print("Teste Motor de Match")
+
 motor = Motor_Match()
 
 ordem1 = Ordem(1, "C", 100.0, 10)
