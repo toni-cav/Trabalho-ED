@@ -2,7 +2,6 @@ from src.data_structures.node import Node
 from src.data_structures.ordem import Ordem
 from src.data_structures.linked_list import Linked_List_Compra, Linked_List_Venda
 
-
 class Motor_Match:
 
     def __init__(self):
@@ -23,7 +22,6 @@ class Motor_Match:
     def processar_compra(self, ordem_compra: Ordem):
         """
         Uma compra casa com vendas quando:
-
         preço_compra >= preço_venda
         """
 
@@ -61,7 +59,6 @@ class Motor_Match:
     def processar_venda(self, ordem_venda: Ordem):
         """
         Uma venda casa com compras quando:
-
         preço_compra >= preço_venda
         """
 

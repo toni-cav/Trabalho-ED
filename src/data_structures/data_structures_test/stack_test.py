@@ -1,5 +1,6 @@
 from src.data_structures.stack import Stack
 
+print("Teste Stack")
 
 pilha = Stack()
 

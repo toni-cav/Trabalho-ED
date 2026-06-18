@@ -2,7 +2,7 @@ from src.data_structures.linked_list import Linked_List_Compra, Linked_List_Vend
 from src.data_structures.ordem import Ordem
 from src.data_structures.node import Node
 
-print("=== TESTE LISTA DE COMPRAS ===")
+print("Teste Lista de Compras")
 
 ordem1 = Ordem(
         id_ordem=1,
@@ -37,7 +37,7 @@ lista_compradores.adicionar_no(acao3)
 
 print(lista_compradores.imprimir())
 
-print("\n=== TESTE LISTA DE VENDAS ===")
+print("\nTeste Lista de Vendas")
 
 ordem4 = Ordem(
         id_ordem=4,
