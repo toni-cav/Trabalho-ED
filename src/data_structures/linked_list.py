@@ -20,11 +20,6 @@ class Linked_List_Compra:  # Melhor comprador no início
 
         return saida
 
-
-    def retorna_tamanho(self):
-        return self.tamanho
-
-
     def adicionar_no(self, no: Node):  # Adiciona melhor comprador no início
 
         # O tipo está dentro da Ordem, e a Ordem está dentro do Node em data
@@ -67,34 +62,6 @@ class Linked_List_Compra:  # Melhor comprador no início
                 return
 
             atual = atual.next
-
-    def adicionar_no_meio(self, no: Node):
-        if no.data.tipo != 'C':
-            print('Erro, tipo da ordem inválido para lista de compras')
-            return
-
-        if self.inicio is None:
-            self.inicio = no
-            self.fim = no
-            self.tamanho += 1
-            return
-
-        meio = self.tamanho // 2
-        atual = self.inicio
-        for i in range(meio):
-            atual = atual.next
-
-        no.next = atual.next
-        no.prev = atual
-
-        if atual.next is not None:
-            atual.next.prev = no
-        else:
-            self.fim = no
-
-        atual.next = no
-        self.tamanho += 1
-
     
     def remover_inicio(self):
         if self.inicio is None:
@@ -117,6 +84,39 @@ class Linked_List_Compra:  # Melhor comprador no início
 
         return ordem_removida
 
+    def remover_por_id(self, id_ordem):
+        """
+        Remove de qualquer ponto da lista o nó cuja Ordem tenha o id
+        informado, religando os ponteiros next/prev dos vizinhos.
+        Necessário para o cancelamento via pilha de undo.
+        """
+        atual = self.inicio
+
+        while atual:
+            if atual.data.id == id_ordem:
+
+                if atual.prev is None:
+                    self.inicio = atual.next
+                else:
+                    atual.prev.next = atual.next
+
+                if atual.next is None:
+                    self.fim = atual.prev
+                else:
+                    atual.next.prev = atual.prev
+
+                ordem_removida = atual.data
+
+                atual.next = None
+                atual.prev = None
+
+                self.tamanho -= 1
+                return ordem_removida
+
+            atual = atual.next
+
+        return None  # id não encontrado no livro
+
 
 class Linked_List_Venda:  # Melhor vendedor no início
 
@@ -136,38 +136,6 @@ class Linked_List_Venda:  # Melhor vendedor no início
             atual = atual.next
 
         return saida
-    
-    
-    def retorna_tamanho(self):
-        return self.tamanho
-   
-   
-    def adicionar_no_meio(self, no: Node):
-        if no.data.tipo != 'V':
-            print('Erro, tipo da ordem inválido para lista de vendas')
-            return
-
-        if self.inicio is None:
-            self.inicio = no
-            self.fim = no
-            self.tamanho += 1
-            return
-
-        meio = self.tamanho // 2
-        atual = self.inicio
-        for i in range(meio):
-            atual = atual.next
-
-        no.next = atual.next
-        no.prev = atual
-
-        if atual.next is not None:
-            atual.next.prev = no
-        else:
-            self.fim = no
-
-        atual.next = no
-        self.tamanho += 1
 
     def adicionar_no(self, no: Node):  # Adiciona melhor vendedor no início
 
@@ -211,8 +179,7 @@ class Linked_List_Venda:  # Melhor vendedor no início
                 return
 
             atual = atual.next
-
- 
+    
     def remover_inicio(self):
         if self.inicio is None:
             return None

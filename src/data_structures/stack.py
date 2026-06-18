@@ -34,3 +34,21 @@ class Stack:
     def espiar(self):
         if self.esta_vazia(): return None
         return self.topo.data
+    
+    def imprimir(self):
+        """
+        Retorna uma string com os elementos da pilha (do topo para a base)
+        para fins de debug e visualização do histórico de Undo.
+        """
+        if self.esta_vazia():
+            return "Pilha vazia."
+
+        atual = self.topo
+        saida = "Topo -> "
+
+        while atual:
+            # Assumindo que atual.data guarda o ID da ordem
+            saida += f"[{atual.data}] "
+            atual = atual.next
+            
+        return saida

@@ -63,4 +63,3 @@ class Queue:
             atual = atual.next
 
         return saida
-
