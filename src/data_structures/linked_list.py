@@ -62,6 +62,7 @@ class Linked_List_Compra:  # Melhor comprador no início
                 return
 
             atual = atual.next
+
     
     def remover_inicio(self):
         if self.inicio is None:
@@ -117,6 +118,8 @@ class Linked_List_Compra:  # Melhor comprador no início
 
         return None  # id não encontrado no livro
 
+    def retorna_tamanho(self):
+        return self.tamanho
 
 class Linked_List_Venda:  # Melhor vendedor no início
 
@@ -200,3 +203,6 @@ class Linked_List_Venda:  # Melhor vendedor no início
         self.tamanho -= 1
 
         return ordem_removida
+    
+    def retorna_tamanho(self):
+        return self.tamanho
