@@ -1,5 +1,6 @@
 from src.data_structures.node import Node
-from src.data_structures.ordem import Ordem
+from src.data_structures.transacoes import Transacao
+
 
 class Linked_List_Compra:  # Melhor comprador no início
 
@@ -11,6 +12,8 @@ class Linked_List_Compra:  # Melhor comprador no início
 
     # Imprimir itens da lista
     def imprimir(self):
+        if self.esta_vazia(): return "Nenhuma Compra realizada."
+
         atual = self.inicio
         saida = ""
 
@@ -19,6 +22,11 @@ class Linked_List_Compra:  # Melhor comprador no início
             atual = atual.next
 
         return saida
+    
+    def esta_vazia(self):
+        if self.inicio == None: return True
+        else: return False
+
 
     def adicionar_no(self, no: Node):  # Adiciona melhor comprador no início
 
@@ -125,8 +133,15 @@ class Linked_List_Venda:  # Melhor vendedor no início
         self.fim = None
         self.tamanho = 0
 
+    def esta_vazia(self):
+        if self.inicio == None: return True
+        else: return False
+
+
     # Imprimir itens da lista
     def imprimir(self):
+        if self.esta_vazia(): return "Nenhuma Venda realizada."
+
         atual = self.inicio
         saida = ""
 
@@ -228,3 +243,41 @@ class Linked_List_Venda:  # Melhor vendedor no início
             atual = atual.next
 
         return None  # id não encontrado no livro
+    
+class Linked_List_Transacoes:
+    def __init__(self):
+        self.inicio = None
+        self.fim = None
+        self.tamanho = 0
+
+    def esta_vazia(self):
+        if self.inicio == None: return True
+        else: return False
+
+    def adicionar_no(self, no: Node):
+        if not isinstance(no.data, Transacao): print('Erro, tipo de dado inválido para lista de transações'); return
+
+        if self.inicio is None:
+            self.inicio = no
+            self.fim = no
+            self.tamanho +=1
+            return
+        
+        self.fim.next = no
+        no.prev = self.fim
+        self.fim = no
+        self.tamanho += 1
+
+    def imprimir(self):
+        if self.esta_vazia(): return "Nenhuma transação realizada."
+        atual = self.inicio
+        saida = ""
+
+        while atual:
+            saida += f'{atual.data}\n'
+            atual = atual.next
+
+        return saida
+
+
+

@@ -2,7 +2,8 @@ from src.data_structures.node import Node
 from src.data_structures.queue import Queue
 from src.data_structures.stack import Stack
 from src.data_structures.ordem import Ordem
-from src.data_structures.linked_list import Linked_List_Compra, Linked_List_Venda
+from src.data_structures.transacoes import Transacao
+from src.data_structures.linked_list import Linked_List_Compra, Linked_List_Venda, Linked_List_Transacoes
 
 class Motor_Match:
 
@@ -11,7 +12,7 @@ class Motor_Match:
         self.lista_vendas = Linked_List_Venda()
         self.fila_entrada = Queue()   # Fila FIFO de entrada de novas ordens
         self.pilha_undo = Stack()     # Pilha com IDs inseridos com sucesso no livro
-        self.transacoes = []
+        self.lista_transacoes = Linked_List_Transacoes()
 
     def inserir_ordem(self, ordem: Ordem):
         """
@@ -78,7 +79,7 @@ class Motor_Match:
             self.lista_compras.adicionar_no(no_compra)
             # Registra no undo apenas a ordem que efetivamente passou
             # a repousar no livro de ofertas
-            self.pilha_undo.enfileirar(('C', ordem_compra.id))
+            self.pilha_undo.empilhar(ordem_compra.id)
 
     def processar_venda(self, ordem_venda: Ordem):
         """
@@ -118,7 +119,7 @@ class Motor_Match:
             self.lista_vendas.adicionar_no(no_venda)
             # Registra no undo apenas a ordem que efetivamente passou
             # a repousar no livro de ofertas
-            self.pilha_undo.enfileirar(('V', ordem_venda.id))
+            self.pilha_undo.empilhar(ordem_venda.id)
 
     def desfazer_ultima_acao(self):
         """
@@ -130,34 +131,26 @@ class Motor_Match:
             print("Não há ações para desfazer.")
             return None
 
-        tipo, id_ordem = self.pilha_undo.desenfileirar()
+        id_ordem = self.pilha_undo.desempilhar()
 
-        if tipo == 'C':
-            ordem_removida = self.lista_compras.remover_por_id(id_ordem)
-        else:
-            ordem_removida = self.lista_vendas.remover_por_id(id_ordem)
+        ordem_removida = self.lista_compras.remover_por_id(id_ordem)
+        if ordem_removida is None: ordem_removida=self.lista_vendas.remover_por_id(id_ordem)
 
         if ordem_removida is not None:
-            print(f"[UNDO] Ordem ID {id_ordem} ({tipo}) removida do livro.")
+            print(f"[UNDO] Ordem ID {id_ordem} removida do livro.")
         else:
             # Pode acontecer se a ordem já tiver sido total ou
             # parcialmente casada após sua inserção no livro
             print(
-                f"[UNDO] Ordem ID {id_ordem} ({tipo}) não encontrada "
+                f"[UNDO] Ordem ID {id_ordem} não encontrada "
                 f"no livro (provavelmente já foi casada)."
             )
 
         return ordem_removida
 
     def registrar_transacao(self, id_compra, id_venda, preco, quantidade):
-        transacao = {
-            "id_compra": id_compra,
-            "id_venda": id_venda,
-            "preco": preco,
-            "quantidade": quantidade
-        }
-
-        self.transacoes.append(transacao)
+        transacao = Node(data=Transacao(id_compra, id_venda, preco, quantidade))
+        self.lista_transacoes.adicionar_no(transacao)
 
         print(
             f"Transação realizada | "
@@ -181,14 +174,4 @@ class Motor_Match:
     def imprimir_transacoes(self):
         print("\n========== TRANSAÇÕES ==========")
 
-        if len(self.transacoes) == 0:
-            print("Nenhuma transação realizada.")
-            return
-
-        for transacao in self.transacoes:
-            print(
-                f"Compra ID {transacao['id_compra']} | "
-                f"Venda ID {transacao['id_venda']} | "
-                f"Preço R$ {transacao['preco']:.2f} | "
-                f"Qtd {transacao['quantidade']}"
-            )
+        print(self.lista_transacoes.imprimir())
