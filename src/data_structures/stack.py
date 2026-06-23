@@ -4,6 +4,7 @@ class Stack:
     def __init__(self):
         # Começa vazia
         self.topo = None
+        self.tamanho = 0
     
     def esta_vazia(self):
         if self.topo == None: return True
@@ -19,17 +20,23 @@ class Stack:
         # O novo item no topo é o nó adicionado
         self.topo = no
 
+        self.tamanho += 1
+
     def desempilhar(self):
         # Se a lista está vazia, não há como retirar o último item
         if self.esta_vazia(): return None
         
         # Guarda o nó removido para retorná-lo
-        no_removido = self.topo.data
+        no_removido = self.topo
 
         # O novo item no topo será o antigo "segundo lugar"
         self.topo = self.topo.next
 
-        return no_removido
+        no_removido.next = None
+
+        self.tamanho -= 1
+
+        return no_removido.data
     
     def espiar(self):
         if self.esta_vazia(): return None
