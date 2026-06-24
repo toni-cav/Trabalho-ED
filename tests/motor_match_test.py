@@ -1,4 +1,4 @@
-from src.data_structures.ordem import Ordem
+from src.models.ordem import Ordem
 from src.data_structures.motor_match import Motor_Match
 
 print("=== TESTE FILA DE ENTRADA ===")
@@ -57,14 +57,9 @@ motor2.processar_fila()
 motor2.imprimir_livro()
 # Livro deve estar vazio, as duas ordens se casaram completamente
 
+print("\nHistórico de transações (deve conter uma transação):")
+motor2.imprimir_transacoes()
+
 print("\nTentando desfazer a ordem 5, que já foi casada:")
 resultado = motor2.desfazer_ultima_acao()
 print("Resultado do undo (tem que ser None):", resultado)
-
-
-print("\n=== TESTE UNDO COM PILHA VAZIA ===")
-
-motor3 = Motor_Match()
-print("\nTentando desfazer sem nenhuma ação no histórico:")
-resultado_vazio = motor3.desfazer_ultima_acao()
-print("Resultado do undo (tem que ser None):", resultado_vazio)

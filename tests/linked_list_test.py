@@ -1,5 +1,10 @@
-from src.data_structures.linked_list import Linked_List_Compra, Linked_List_Venda
-from src.data_structures.ordem import Ordem
+from src.data_structures.linked_list import (
+    Linked_List_Compra,
+    Linked_List_Venda,
+    Linked_List_Transacoes
+)
+from src.models.ordem import Ordem
+from src.models.transacoes import Transacao
 from src.data_structures.node import Node
 
 print("Teste Lista de Compras")
@@ -71,3 +76,29 @@ lista_vendedores.adicionar_no(venda2)
 lista_vendedores.adicionar_no(venda3)
 
 print(lista_vendedores.imprimir())
+
+print("\nTeste Lista de Transações")
+
+transacao1 = Transacao(
+        id_compra=1,
+        id_venda=4,
+        preco=100.0,
+        quantidade=1
+    )
+
+transacao2 = Transacao(
+        id_compra=2,
+        id_venda=5,
+        preco=90.0,
+        quantidade=2
+    )
+
+no_transacao1 = Node(transacao1)
+no_transacao2 = Node(transacao2)
+
+lista_transacoes = Linked_List_Transacoes()
+
+lista_transacoes.adicionar_no(no_transacao1)
+lista_transacoes.adicionar_no(no_transacao2)
+
+print(lista_transacoes.imprimir())

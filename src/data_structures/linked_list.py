@@ -12,7 +12,7 @@ class Linked_List_Compra:  # Melhor comprador no início
 
     # Imprimir itens da lista
     def imprimir(self):
-        if self.esta_vazia(): return "Nenhuma Compra realizada."
+        if self.esta_vazia(): return "Nenhuma ordem de compra/venda no livro."
 
         atual = self.inicio
         saida = ""
