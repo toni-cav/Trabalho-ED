@@ -7,7 +7,7 @@ class Stack:
         self.tamanho = 0
     
     def esta_vazia(self):
-        if self.topo == None: return True
+        if self.topo is None: return True
         else: return False
 
     def empilhar(self, data):
@@ -42,6 +42,36 @@ class Stack:
         if self.esta_vazia(): return None
         return self.topo.data
     
+    def remover_por_valor(self, valor):
+        """
+        Remove a primeira ocorrência de 'valor' em qualquer posição da pilha,
+        religando os ponteiros next dos nós vizinhos.
+        Necessário para manter a pilha de undo consistente quando uma ordem
+        que estava no livro é consumida por um match.
+        Retorna True se encontrou e removeu, False caso contrário.
+        """
+        if self.esta_vazia():
+            return False
+
+        # Caso especial: o valor está no topo
+        if self.topo.data == valor:
+            self.desempilhar()
+            return True
+
+        anterior = self.topo
+        atual = self.topo.next
+
+        while atual is not None:
+            if atual.data == valor:
+                anterior.next = atual.next
+                atual.next = None
+                self.tamanho -= 1
+                return True
+            anterior = atual
+            atual = atual.next
+
+        return False  # valor não encontrado
+
     def imprimir(self):
         """
         Retorna uma string com os elementos da pilha (do topo para a base)

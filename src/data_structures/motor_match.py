@@ -1,8 +1,8 @@
 from src.data_structures.node import Node
 from src.data_structures.queue import Queue
 from src.data_structures.stack import Stack
-from src.data_structures.ordem import Ordem
-from src.data_structures.transacoes import Transacao
+from src.models.ordem import Ordem
+from src.models.transacoes import Transacao
 from src.data_structures.linked_list import Linked_List_Compra, Linked_List_Venda, Linked_List_Transacoes
 
 class Motor_Match:
@@ -73,6 +73,8 @@ class Motor_Match:
 
             if melhor_venda.quantidade == 0:
                 self.lista_vendas.remover_inicio()
+                # A ordem de venda saiu do livro por match: remove seu ID do undo
+                self.pilha_undo.remover_por_valor(melhor_venda.id)
 
         if ordem_compra.quantidade > 0:
             no_compra = Node(ordem_compra)
@@ -113,6 +115,8 @@ class Motor_Match:
 
             if melhor_compra.quantidade == 0:
                 self.lista_compras.remover_inicio()
+                # A ordem de compra saiu do livro por match: remove seu ID do undo
+                self.pilha_undo.remover_por_valor(melhor_compra.id)
 
         if ordem_venda.quantidade > 0:
             no_venda = Node(ordem_venda)

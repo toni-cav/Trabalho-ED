@@ -1,6 +1,5 @@
 from src.data_structures.node import Node
-from src.data_structures.transacoes import Transacao
-
+from src.models.transacoes import Transacao
 
 class Linked_List_Compra:  # Melhor comprador no início
 
@@ -12,19 +11,19 @@ class Linked_List_Compra:  # Melhor comprador no início
 
     # Imprimir itens da lista
     def imprimir(self):
-        if self.esta_vazia(): return "Nenhuma ordem de compra/venda no livro."
+        if self.esta_vazia(): return "Nenhuma ordem de compra no livro."
 
         atual = self.inicio
-        saida = ""
+        partes = []
 
         while atual:
-            saida += f'{str(atual.data.tipo)} por {str(atual.data.preco)} --> '
+            partes.append(f'{atual.data.tipo} por {atual.data.preco}')
             atual = atual.next
 
-        return saida
+        return ' --> '.join(partes)
     
     def esta_vazia(self):
-        if self.inicio == None: return True
+        if self.inicio is None: return True
         else: return False
 
 
@@ -134,22 +133,22 @@ class Linked_List_Venda:  # Melhor vendedor no início
         self.tamanho = 0
 
     def esta_vazia(self):
-        if self.inicio == None: return True
+        if self.inicio is None: return True
         else: return False
 
 
     # Imprimir itens da lista
     def imprimir(self):
-        if self.esta_vazia(): return "Nenhuma Venda realizada."
+        if self.esta_vazia(): return "Nenhuma ordem de venda no livro."
 
         atual = self.inicio
-        saida = ""
+        partes = []
 
         while atual:
-            saida += f'{str(atual.data.tipo)} por {str(atual.data.preco)} --> '
+            partes.append(f'{atual.data.tipo} por {atual.data.preco}')
             atual = atual.next
 
-        return saida
+        return ' --> '.join(partes)
 
     def adicionar_no(self, no: Node):  # Adiciona melhor vendedor no início
 
@@ -251,7 +250,7 @@ class Linked_List_Transacoes:
         self.tamanho = 0
 
     def esta_vazia(self):
-        if self.inicio == None: return True
+        if self.inicio is None: return True
         else: return False
 
     def adicionar_no(self, no: Node):
@@ -278,6 +277,3 @@ class Linked_List_Transacoes:
             atual = atual.next
 
         return saida
-
-
-

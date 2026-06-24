@@ -1,5 +1,5 @@
 from src.data_structures.node import Node
-from src.data_structures.ordem import Ordem
+from src.models.ordem import Ordem
 
 
 class Queue:
@@ -54,11 +54,11 @@ class Queue:
 
     def imprimir(self):
         atual = self.inicio
-        saida = ""
+        partes = []
 
         while atual:
             ordem = atual.data
-            saida += f'{ordem.tipo} por {ordem.preco} --> '
+            partes.append(f'{ordem.tipo} por {ordem.preco}')
             atual = atual.next
 
-        return saida
+        return ' --> '.join(partes) if partes else "Fila vazia."

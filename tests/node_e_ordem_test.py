@@ -1,4 +1,4 @@
-from src.data_structures.ordem import Ordem
+from src.models.ordem import Ordem
 from src.data_structures.node import Node
 
 print("Teste Node e Ordem")
