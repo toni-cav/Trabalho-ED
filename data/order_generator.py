@@ -49,9 +49,18 @@ def gerar_multiplos_csv(diretorio_saida, quantidades):
 
 def main():
     try:
-        texto = input("Digite as quantidades separadas por vírgula, exemplo 100,1000,5000: ")
-        quantidades = tuple(int(item.strip()) for item in texto.split(",") if item.strip())
+        texto = input(
+            "Digite as quantidades separadas por vírgula "
+            "(Enter para usar 10,100,1000,10000): "
+        )
+
+        if texto.strip():
+            quantidades = tuple(int(item.strip()) for item in texto.split(",") if item.strip())
+        else:
+            quantidades = (10, 100, 1000, 10000)
+
         gerar_multiplos_csv(Path(__file__).parent, quantidades)
+
     except ValueError as erro:
         print(f"Entrada inválida: {erro}")
     else:
