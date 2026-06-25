@@ -67,3 +67,4 @@ if __name__ == "__main__":
             
     except ValueError:
         print("Entrada inválida! Por favor, digite apenas números inteiros para a quantidade de arquivos.")
+        
