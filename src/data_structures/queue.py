@@ -53,12 +53,16 @@ class Queue:
         return self.inicio.data
 
     def imprimir(self):
+        if self.esta_vazia():
+            return "Fila vazia."
+
         atual = self.inicio
-        partes = []
+        resultado = ""
 
         while atual:
-            ordem = atual.data
-            partes.append(f'{ordem.tipo} por {ordem.preco}')
+            if resultado:
+                resultado += " --> "
+            resultado += f'{atual.data.tipo} por {atual.data.preco}'
             atual = atual.next
 
-        return ' --> '.join(partes) if partes else "Fila vazia."
+        return resultado
